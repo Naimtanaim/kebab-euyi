@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Kebab Euyi - Pesan Sekarang</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#3d5a2f;
+  --accent:#f2c94c;
+  --white:#ffffff;
+  --muted:#f4f6f9;
+  --shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  background:linear-gradient(180deg,#4b6a37 0%,#365225 100%);
+  color:var(--white);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:18px;
+}
+.app{width:100%;max-width:420px;min-height:640px;position:relative;}
+.hero{padding:18px;height:84vh;display:flex;flex-direction:column;justify-content:space-between;}
+.logo-title{display:flex;gap:10px;align-items:center;margin-top:8px;}
+.logo-circle{width:68px;height:68px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;color:#2b2b2b;box-shadow:var(--shadow);font-size:20px;}
+.title{font-size:34px;font-weight:800;text-transform:uppercase;text-shadow:0 4px 10px rgba(0,0,0,0.35);}
+.circles{display:flex;gap:18px;align-items:center;justify-content:center;margin-top:10px;}
+.big-img,.small-img{border-radius:50%;background:#fff;padding:8px;box-shadow:var(--shadow);overflow:hidden;}
+.big-img img{width:220px;height:220px;object-fit:cover;border-radius:50%;}
+.small-img img{width:92px;height:92px;object-fit:cover;border-radius:50%;}
+.promo{display:flex;justify-content:space-between;margin-top:8px;}
+.promo-text{font-size:26px;font-weight:800;text-shadow:0 4px 8px rgba(0,0,0,0.25);}
+.tag{background:rgba(255,255,255,0.12);padding:10px 14px;border-radius:12px;font-weight:700;}
+.actions{display:flex;gap:12px;align-items:center;justify-content:space-between;}
+.btn{background:var(--white);color:#25321a;padding:12px 18px;border-radius:999px;font-weight:800;box-shadow:0 8px 18px rgba(0,0,0,0.22);border:none;font-size:16px;cursor:pointer;flex:1;}
+.contact{display:flex;gap:10px;align-items:center;justify-content:center;background:rgba(0,0,0,0.12);padding:10px 12px;border-radius:12px;flex-basis:48%;color:var(--muted);font-weight:700;}
+.contact .icon{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#2b2b2b;font-weight:800;}
+.menu-view{
+  background:var(--white);
+  color:#111;
+  position:absolute;
+  top:100%;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:14px;
+  border-top-left-radius:18px;
+  border-top-right-radius:18px;
+  box-shadow:0 -20px 60px rgba(0,0,0,0.25);
+  transition:top .45s cubic-bezier(.2,.9,.3,1);
+  overflow:auto;
+}
+.menu-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.back-btn{background:#eee;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;}
+.menu-title{font-size:20px;font-weight:800;}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.card{background:#fff;border-radius:12px;padding:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08);display:flex;flex-direction:column;gap:8px;}
+.card img{width:100%;height:120px;object-fit:cover;border-radius:8px;}
+.card .name{font-weight:800;font-size:14px;}
+.card .price{color:#2d7a2d;font-weight:800;}
+.card button{background:#2d7a2d;color:white;border:none;padding:8px;border-radius:8px;font-weight:700;cursor:pointer;}
+.cart-panel{
+  position:fixed;
+  bottom:-100%;
+  left:0;
+  right:0;
+  background:#fff;
+  border-top-left-radius:20px;
+  border-top-right-radius:20px;
+  box-shadow:0 -8px 30px rgba(0,0,0,0.3);
+  padding:16px;
+  transition:bottom 0.4s ease;
+  max-height:80vh;
+  overflow:auto;
+  color:#111;
+}
+.cart-panel.active{bottom:0;}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.cart-item span{font-size:14px;font-weight:600;}
+.remove-btn{background:#ff4d4d;border:none;color:#fff;padding:4px 8px;border-radius:6px;cursor:pointer;font-size:12px;}
+.checkout-btn{background:#2d7a2d;color:white;border:none;width:100%;padding:12px;border-radius:10px;font-weight:800;margin-top:10px;cursor:pointer;}
+.cart-icon{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--accent);
+  color:#2b2b2b;
+  font-weight:800;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  box-shadow:var(--shadow);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:22px;
+  z-index:10;
+}
+.cart-icon span{
+  position:absolute;
+  top:8px;
+  right:10px;
+  background:red;
+  color:white;
+  font-size:12px;
+  border-radius:50%;
+  padding:2px 6px;
+  font-weight:700;
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hero" id="landing">
+    <div>
+      <div class="logo-title">
+        <div class="logo-circle">K</div>
+        <div>
+          <div class="title">Kebab Euyi</div>
+          <div style="font-weight:700;color:rgba(255,255,255,0.86);margin-top:4px;">Guwa Lor</div>
+        </div>
+      </div>
+      <div class="circles">
+        <div class="big-img"><img src="IMG_0327.jpg" alt="kebab besar"></div>
+        <div class="small-img"><img src="IMG_0328.jpg" alt="kebab kecil"></div>
+      </div>
+      <div class="promo">
+        <div class="promo-text">Beli 1 Gratis 1</div>
+        <div class="tag">Promo Spesial!</div>
+      </div>
+    </div>
+    <div>
+      <div class="actions">
+        <button class="btn" id="openMenu">Pesan Sekarang</button>
+        <div class="contact">
+          <div class="icon">📞</div>
+          <div>+6287721070107</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-view" id="menuView">
+    <div class="menu-header">
+      <button class="back-btn" id="backBtn">← Kembali</button>
+      <div class="menu-title">Menu Kebab</div>
+    </div>
+    <div class="grid" id="menuGrid"></div>
+  </div>
+
+  <div class="cart-icon" id="cartIcon">🛒<span id="cartCount">0</span></div>
+
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <div style="font-weight:800;font-size:18px;">Keranjang Saya</div>
+      <button class="back-btn" id="closeCart">Tutup</button>
+    </div>
+    <div id="cartList"></div>
+    <div style="margin-top:10px;font-weight:700;">Total: Rp <span id="totalPrice">0</span></div>
+    <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+  </div>
+</div>
+
+<script>
+const adminNumber = "6287721070107"; // nomor WA admin/penjual
+const ongkirAdmin = 5000; // ongkir tetap ditentukan oleh admin (Rp)
+
+const menuItems = [
+  { id:1, name:"Kebab Beef", price:5000, img:"IMG_Sapi.jpg" },
+  { id:2, name:"Kebab Telur", price:8000, img:"IMG_Telor.jpg" },
+  { id:3, name:"Kebab Sosis", price:7000, img:"IMG_Sosis.jpg" },
+  { id:4, name:"Kebab Ayam", price:10000, img:"IMG_Ayam.jpg" }
+];
+
+let cart = {};
+const menuView=document.getElementById("menuView");
+const openMenu=document.getElementById("openMenu");
+const backBtn=document.getElementById("backBtn");
+const menuGrid=document.getElementById("menuGrid");
+const cartIcon=document.getElementById("cartIcon");
+const cartCount=document.getElementById("cartCount");
+const cartPanel=document.getElementById("cartPanel");
+const closeCart=document.getElementById("closeCart");
+const cartList=document.getElementById("cartList");
+const totalPriceEl=document.getElementById("totalPrice");
+const checkoutBtn=document.getElementById("checkoutBtn");
+
+openMenu.onclick=()=>{menuView.style.top="0%";cartIcon.style.display="flex";};
+backBtn.onclick=()=>{menuView.style.top="100%";cartIcon.style.display="none";};
+cartIcon.onclick=()=>cartPanel.classList.add("active");
+closeCart.onclick=()=>cartPanel.classList.remove("active");
+
+function renderMenu(){
+  menuGrid.innerHTML="";
+  menuItems.forEach(item=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <img src="${item.img}" alt="${item.name}">
+      <div class="name">${item.name}</div>
+      <div class="price">Rp ${formatNumber(item.price)}</div>
+      <button onclick="addToCart(${item.id})">Tambah</button>`;
+    menuGrid.appendChild(card);
+  });
+}
+renderMenu();
+
+function addToCart(id){
+  const item=menuItems.find(i=>i.id===id);
+  if(!item)return;
+  if(!cart[id])cart[id]={...item,qty:0};
+  cart[id].qty++;
+  updateCart();
+}
+
+function removeFromCart(id){
+  delete cart[id];
+  updateCart();
+}
+
+function updateCart(){
+  const totalQty=Object.values(cart).reduce((s,i)=>s+i.qty,0);
+  const totalPrice=Object.values(cart).reduce((s,i)=>s+i.qty*i.price,0);
+  cartCount.textContent=totalQty;
+  totalPriceEl.textContent=formatNumber(totalPrice);
+  renderCartList();
+}
+
+function renderCartList(){
+  cartList.innerHTML="";
+  if(Object.keys(cart).length===0){
+    cartList.innerHTML="<p style='text-align:center;color:#666;'>Keranjang kosong</p>";
+    return;
+  }
+  Object.values(cart).forEach(i=>{
+    const div=document.createElement("div");
+    div.className="cart-item";
+    div.innerHTML=`
+      <span>${i.name} x${i.qty}</span>
+      <div>
+        <span>Rp ${formatNumber(i.qty*i.price)}</span>
+        <button class="remove-btn" onclick="removeFromCart(${i.id})">❌</button>
+      </div>`;
+    cartList.appendChild(div);
+  });
+}
+
+function formatNumber(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,".");}
+
+checkoutBtn.onclick=()=>{
+  if(Object.keys(cart).length===0)return alert("Keranjang kosong!");
+  const nama=prompt("Masukkan Nama Anda:");
+  if(!nama)return alert("Nama harus diisi!");
+  const nohp=prompt("Masukkan Nomor HP Anda:");
+  if(!nohp)return alert("Nomor HP harus diisi!");
+  const alamat=prompt("Masukkan Alamat Pengantaran:");
+  if(!alamat)return alert("Alamat harus diisi!");
+
+  let msg="📦 *Pesanan Baru Kebab Euyi* %0A%0A";
+  Object.values(cart).forEach(i=>{
+    msg+=`- ${i.name} x${i.qty} = Rp ${formatNumber(i.qty*i.price)}%0A`;
+  });
+  const totalBarang=Object.values(cart).reduce((s,i)=>s+i.qty*i.price,0);
+  const totalAkhir=totalBarang+ongkirAdmin;
+  msg+=`%0A🧾 Total Barang: Rp ${formatNumber(totalBarang)}%0A🚚 Ongkir: Rp ${formatNumber(ongkirAdmin)}%0A💰 Total Akhir: Rp ${formatNumber(totalAkhir)}%0A%0A👤 Nama: ${nama}%0A📞 Nomor HP: ${nohp}%0A🏠 Alamat: ${alamat}`;
+  
+  const url=`https://wa.me/${adminNumber}?text=${msg}`;
+  window.open(url,"_blank");
+};
+</script>
+</body>
+</html>
