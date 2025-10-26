@@ -170,7 +170,7 @@ body{
 
 <script>
 const adminNumber = "6287721070107"; // nomor WA admin/penjual
-const ongkirAdmin = 1000; // ongkir tetap ditentukan oleh admin (Rp)
+const ongkirAdmin = 5000; // ongkir tetap ditentukan oleh admin (Rp)
 
 const menuItems = [
   { id:1, name:"Kebab Beef", price:5000, img:"IMG_Sapi.jpg" },
@@ -271,8 +271,9 @@ checkoutBtn.onclick=()=>{
   const totalAkhir=totalBarang+ongkirAdmin;
   msg+=`%0A🧾 Total Barang: Rp ${formatNumber(totalBarang)}%0A🚚 Ongkir: Rp ${formatNumber(ongkirAdmin)}%0A💰 Total Akhir: Rp ${formatNumber(totalAkhir)}%0A%0A👤 Nama: ${nama}%0A📞 Nomor HP: ${nohp}%0A🏠 Alamat: ${alamat}`;
   
-  const url=`https://wa.me/${adminNumber}?text=${msg}`;
-  window.open(url,"_blank");
+  const url = `https://wa.me/${adminNumber}?text=${encodeURIComponent(msg)}`;
+window.open(url, "_blank");
+
 };
 </script>
 </body>
